@@ -23,7 +23,7 @@ apksign {
 }
 
 android {
-    namespace = "com.rifsxd.ksunext"
+    namespace = "com.lordsunext.manager"
 
     buildTypes {
         release {
@@ -68,7 +68,7 @@ android {
     applicationVariants.all {
         outputs.forEach {
             val output = it as BaseVariantOutputImpl
-            output.outputFileName = "KernelSU_Next_${managerVersionName}_${managerVersionCode}-$name.apk"
+            output.outputFileName = "LordSUNEXT_${managerVersionName}_${managerVersionCode}.apk"
         }
         kotlin.sourceSets {
             getByName(name) {
