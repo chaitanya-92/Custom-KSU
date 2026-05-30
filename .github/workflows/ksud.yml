@@ -29,25 +29,37 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Download artifacts
+    - name: Download LKM artifacts
+      if: ${{ inputs.pack_lkm }}
       uses: actions/download-artifact@v7
+      with:
+        pattern: "*-lkm"
+        path: ./artifacts/lkm
+        merge-multiple: true
+
+    - name: Download ksuinit artifact
+      if: ${{ inputs.pack_ksuinit }}
+      uses: actions/download-artifact@v7
+      with:
+        name: ksuinit
+        path: ./artifacts/ksuinit
     
     - name: Prepare LKM files
       if: ${{ inputs.pack_lkm }}
       run: |
         mkdir -p ./userspace/ksud/bin/aarch64/
-        KO_COUNT="$(find . -path "./android*-lkm/*_kernelsu.ko" -type f | wc -l | tr -d ' ')"
+        KO_COUNT="$(find ./artifacts/lkm -type f -name "*_kernelsu.ko" | wc -l | tr -d ' ')"
         if [ "$KO_COUNT" = "0" ]; then
           echo "No LKM artifacts found"
           exit 1
         fi
-        find . -path "./android*-lkm/*_kernelsu.ko" -type f -exec cp {} ./userspace/ksud/bin/aarch64/ \;
+        find ./artifacts/lkm -type f -name "*_kernelsu.ko" -exec cp {} ./userspace/ksud/bin/aarch64/ \;
     
     - name: Prepare ksuinit
       if: ${{ inputs.pack_ksuinit }}
       run: |
         mkdir -p ./userspace/ksud/bin/aarch64/
-        KSUINIT_PATH="$(find . -path "./ksuinit/*" -type f -name ksuinit | head -n 1)"
+        KSUINIT_PATH="$(find ./artifacts/ksuinit -type f -name ksuinit | head -n 1)"
         if [ -z "$KSUINIT_PATH" ]; then
           echo "ksuinit artifact not found"
           exit 1
