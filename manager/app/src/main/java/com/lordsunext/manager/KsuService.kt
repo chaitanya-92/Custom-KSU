@@ -1,4 +1,4 @@
-package com.lordsunext.manager.ui;
+package com.lordsunext.manager
 
 import android.content.Intent
 import android.content.pm.PackageInfo

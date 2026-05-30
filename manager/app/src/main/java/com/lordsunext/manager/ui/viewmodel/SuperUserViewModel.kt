@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModel
 import com.lordsunext.manager.IKsuInterface
 import com.lordsunext.manager.Natives
 import com.lordsunext.manager.ksuApp
-import com.lordsunext.manager.ui.KsuService
+import com.lordsunext.manager.KsuService
 import com.lordsunext.manager.ui.util.HanziToPinyin
 import com.topjohnwu.superuser.ipc.RootService
 import com.topjohnwu.superuser.Shell
