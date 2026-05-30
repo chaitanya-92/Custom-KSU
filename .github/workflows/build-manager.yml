@@ -5,35 +5,25 @@ on:
     branches: [ "stable" ]
     paths:
       - '.github/workflows/build-manager.yml'
-      - '.github/workflows/build-lkm.yml'
-      - '.github/workflows/ddk-lkm.yml'
       - '.github/workflows/ksud.yml'
       - 'manager/**'
-      - 'kernel/**'
       - 'userspace/**'
   pull_request:
     branches: [ "stable" ]
     paths:
       - '.github/workflows/build-manager.yml'
-      - '.github/workflows/build-lkm.yml'
-      - '.github/workflows/ddk-lkm.yml'
       - '.github/workflows/ksud.yml'
       - 'manager/**'
-      - 'kernel/**'
       - 'userspace/**'
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  build-lkm:
-    uses: ./.github/workflows/build-lkm.yml
-    secrets: inherit
-
   build-ksuinit:
     uses: ./.github/workflows/ksuinit.yml
 
   build-ksud:
-    needs: [build-lkm, build-ksuinit]
+    needs: [build-ksuinit]
     strategy:
       matrix:
         include:
@@ -47,7 +37,7 @@ jobs:
       os: ${{ matrix.os }}
 
   build-ksud-extra:
-    needs: [build-lkm, build-ksuinit]
+    needs: [build-ksuinit]
     strategy:
       matrix:
         include:
