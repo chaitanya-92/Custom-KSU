@@ -21,7 +21,7 @@ import okhttp3.OkHttpClient
 import java.io.File
 import java.util.*
 
-lateinit var ksuApp: KernelSUApplication
+lateinit var ksuApp: LordSUNEXTApplication
 
 class LordSUNEXTApplication : Application(), ViewModelStoreOwner {
 
