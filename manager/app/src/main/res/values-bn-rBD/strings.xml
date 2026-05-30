@@ -5,8 +5,8 @@
   <string name="issue_report_body_2"></string>
   <string name="issue_report_github">গিটহাবে রিপোর্ট করুন</string>
   <string name="issue_report_telegram">টেলিগ্রামে যোগাযোগ করুন</string>
-  <string name="issue_report_github_link">https://github.com/LordSUNEXT/LordSUNEXT/issues</string>
-  <string name="issue_report_telegram_link">https://t.me/ksunext</string>
+  <string name="issue_report_github_link">https://github.com/chaitanya-92/Custom-KSU/issues</string>
+  <string name="issue_report_telegram_link">https://t.me/Who_colki</string>
   <string name="confirm">নিশ্চিত করুন</string>
   <string name="home">হোম</string>
   <string name="home_not_installed">ইন্সটল হয়নি</string>

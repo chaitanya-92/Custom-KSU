@@ -1022,7 +1022,7 @@ fun ContributorsCard() {
             name = "Rifat Azad",
             githubUrl = "https://github.com/rifsxd",
             role = "Lead Developer",
-            donationUrl = "https://github.com/LordSUNEXT/LordSUNEXT/tree/dev?tab=readme-ov-file#-donations"
+            donationUrl = "https://github.com/chaitanya-92/Custom-KSU/tree/dev?tab=readme-ov-file#-donations"
         ),
         Contributor(
             login = "tiann",

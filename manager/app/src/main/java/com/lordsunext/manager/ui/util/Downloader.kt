@@ -65,7 +65,7 @@ fun download(
 
 fun checkNewVersion(): LatestVersionInfo {
     // Next version updates
-    val url = "https://api.github.com/repos/LordSUNEXT/LordSUNEXT/releases/latest"
+    val url = "https://api.github.com/repos/chaitanya-92/Custom-KSU/releases/latest"
     // default null value if failed
     val defaultValue = LatestVersionInfo()
     runCatching {

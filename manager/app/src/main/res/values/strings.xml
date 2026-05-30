@@ -5,8 +5,8 @@
     <string name="issue_report_body_2">Report it as soon as possible!</string>
     <string name="issue_report_github">Report on GitHub</string>
     <string name="issue_report_telegram">Contact via Telegram</string>
-    <string name="issue_report_github_link">https://github.com/lord-SUNEXT/LordSUNEXT/issues</string>
-    <string name="issue_report_telegram_link">https://t.me/lordsunext</string>
+    <string name="issue_report_github_link">https://github.com/chaitanya-92/Custom-KSU/issues</string>
+    <string name="issue_report_telegram_link">https://t.me/Who_colki</string>
     <string name="confirm">Confirm</string>
     <string name="app_name" translatable="false">LordSUNEXT</string>
     <string name="home">Home</string>
