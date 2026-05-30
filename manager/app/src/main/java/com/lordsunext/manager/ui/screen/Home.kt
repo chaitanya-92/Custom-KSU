@@ -379,12 +379,10 @@ private fun ModuleCard(onClick: (() -> Unit)? = null) {
 fun UpdateCard() {
     val context = LocalContext.current
     val latestVersionInfo = LatestVersionInfo()
-    
-    var preferSpoofed by remember { mutableStateOf(false) }
-    
-    val newVersion by produceState(initialValue = latestVersionInfo, key1 = preferSpoofed) {
+
+    val newVersion by produceState(initialValue = latestVersionInfo) {
         value = withContext(Dispatchers.IO) {
-            checkNewVersion(preferSpoofed)
+            checkNewVersion()
         }
     }
 
@@ -451,128 +449,6 @@ fun UpdateCard() {
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
-                }
-                
-                Spacer(modifier = Modifier.height(20.dp))
-                
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        text = stringResource(id = R.string.select_build_type),
-                        style = MaterialTheme.typography.labelMedium,
-                        modifier = Modifier.padding(bottom = 12.dp)
-                    )
-                    
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp)
-                            .background(
-                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.12f),
-                                shape = RoundedCornerShape(12.dp)
-                            )
-                            .padding(4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        if (!preferSpoofed) {
-                            FilledTonalButton(
-                                onClick = { preferSpoofed = false },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight(),
-                                colors = ButtonDefaults.filledTonalButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                ),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Verified,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(18.dp)
-                                    )
-                                    Text(stringResource(id = R.string.main), style = MaterialTheme.typography.labelMedium)
-                                }
-                            }
-                        } else {
-                            FilledTonalButton(
-                                onClick = { preferSpoofed = false },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight(),
-                                colors = ButtonDefaults.filledTonalButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.69f),
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                ),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Verified,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(18.dp)
-                                    )
-                                    Text(stringResource(id = R.string.main), style = MaterialTheme.typography.labelMedium)
-                                }
-                            }
-                        }
-                        
-                        if (preferSpoofed) {
-                            FilledTonalButton(
-                                onClick = { preferSpoofed = true },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight(),
-                                colors = ButtonDefaults.filledTonalButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                ),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.VisibilityOff,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(18.dp)
-                                    )
-                                    Text(stringResource(id = R.string.spoofed), style = MaterialTheme.typography.labelMedium)
-                                }
-                            }
-                        } else {
-                            FilledTonalButton(
-                                onClick = { preferSpoofed = true },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight(),
-                                colors = ButtonDefaults.filledTonalButtonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.69f),
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                                ),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.VisibilityOff,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(18.dp)
-                                    )
-                                    Text(stringResource(id = R.string.spoofed), style = MaterialTheme.typography.labelMedium)
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }

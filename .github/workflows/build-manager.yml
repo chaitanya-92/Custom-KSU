@@ -89,9 +89,6 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     needs: build-ksud
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        spoofed: [ false, true ]
 
     defaults:
       run:
@@ -102,12 +99,6 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-
-      - name: Spoof Package ID
-        if: matrix.spoofed == true
-        run: |
-          chmod +x spoof
-          ./spoof
 
       - name: Setup need_upload
         id: need_upload
@@ -168,14 +159,14 @@ jobs:
         uses: actions/upload-artifact@v5
         if: ${{ github.event_name == 'workflow_dispatch' || ( github.event_name != 'pull_request' && (github.ref == 'refs/heads/stable' )) || github.ref_type == 'tag' }}
         with:
-          name: ${{ matrix.spoofed && 'manager-spoofed' || 'manager' }}
+          name: manager
           path: manager/app/build/outputs/apk/release/*.apk
 
       - name: Upload mappings
         uses: actions/upload-artifact@v5
         if: ${{ github.event_name == 'workflow_dispatch' || ( github.event_name != 'pull_request' && (github.ref == 'refs/heads/stable' )) || github.ref_type == 'tag' }}
         with:
-          name: ${{ matrix.spoofed && 'mappings-spoofed' || 'mappings' }}
+          name: mappings
           path: "manager/app/build/outputs/mapping/release/"
 
       - name: Bot session cache
@@ -197,7 +188,7 @@ jobs:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
           COMMIT_URL: ${{ github.event.head_commit.url }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          TITLE: ${{ matrix.spoofed && 'Stable Manager Build (Spoofed)' || 'Stable Manager Build (Normal)' }}
+          TITLE: Stable Manager Build
           BRANCH: ${{ github.ref_name }}
         run: |
           if [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then
@@ -211,9 +202,6 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: build-ksud-gki
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        spoofed: [ false, true ]
 
     defaults:
       run:
@@ -224,12 +212,6 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-
-      - name: Spoof Package ID
-        if: matrix.spoofed == true
-        run: |
-          chmod +x spoof
-          ./spoof
 
       - name: Setup need_upload
         id: need_upload
@@ -290,14 +272,14 @@ jobs:
         uses: actions/upload-artifact@v5
         if: ${{ github.event_name == 'workflow_dispatch' || ( github.event_name != 'pull_request' && (github.ref == 'refs/heads/stable' )) || github.ref_type == 'tag' }}
         with:
-          name: ${{ matrix.spoofed && 'manager-spoofed' || 'manager' }}
+          name: manager
           path: manager/app/build/outputs/apk/release/*.apk
 
       - name: Upload mappings
         uses: actions/upload-artifact@v5
         if: ${{ github.event_name == 'workflow_dispatch' || ( github.event_name != 'pull_request' && (github.ref == 'refs/heads/stable' )) || github.ref_type == 'tag' }}
         with:
-          name: ${{ matrix.spoofed && 'mappings-spoofed' || 'mappings' }}
+          name: mappings
           path: "manager/app/build/outputs/mapping/release/"
 
       - name: Bot session cache
@@ -319,7 +301,7 @@ jobs:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
           COMMIT_URL: ${{ github.event.head_commit.url }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          TITLE: ${{ matrix.spoofed && 'Stable Manager Build (Spoofed)' || 'Stable Manager Build (Normal)' }}
+          TITLE: Stable Manager Build
           BRANCH: ${{ github.ref_name }}
         run: |
           if [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then

@@ -63,7 +63,7 @@ fun download(
     downloadManager.enqueue(request)
 }
 
-fun checkNewVersion(preferSpoofed: Boolean? = null): LatestVersionInfo {
+fun checkNewVersion(): LatestVersionInfo {
     // Next version updates
     val url = "https://api.github.com/repos/LordSUNEXT/LordSUNEXT/releases/latest"
     // default null value if failed
@@ -81,9 +81,8 @@ fun checkNewVersion(preferSpoofed: Boolean? = null): LatestVersionInfo {
 
                 val assets = json.getJSONArray("assets")
 
-                val mainApk = mutableListOf<Triple<String, String, String>>()
-                val spoofedApk = mutableListOf<Triple<String, String, String>>()
-                
+                val apkList = mutableListOf<Triple<String, String, String>>()
+
                 for (i in 0 until assets.length()) {
                     val asset = assets.getJSONObject(i)
                     val name = asset.getString("name")
@@ -95,23 +94,12 @@ fun checkNewVersion(preferSpoofed: Boolean? = null): LatestVersionInfo {
                     val versionName = matchResult.groupValues[1]
                     val versionCode = matchResult.groupValues[2]
                     val downloadUrl = asset.getString("browser_download_url")
-                    
-                    val isSpoofed = name.contains("spoofed", ignoreCase = true)
-                    val apkInfo = Triple(versionName, versionCode, downloadUrl)
-                    
-                    if (isSpoofed) {
-                        spoofedApk.add(apkInfo)
-                    } else {
-                        mainApk.add(apkInfo)
-                    }
+
+                    apkList.add(Triple(versionName, versionCode, downloadUrl))
                 }
-                
-                val selectedApk = when (preferSpoofed) {
-                    true -> spoofedApk.firstOrNull() ?: mainApk.firstOrNull()
-                    false -> mainApk.firstOrNull() ?: spoofedApk.firstOrNull()
-                    null -> mainApk.firstOrNull() ?: spoofedApk.firstOrNull() // Default to main
-                }
-                
+
+                val selectedApk = apkList.firstOrNull()
+
                 if (selectedApk != null) {
                     val versionCode = selectedApk.second.toInt()
                     val downloadUrl = selectedApk.third

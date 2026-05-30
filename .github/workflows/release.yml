@@ -65,7 +65,6 @@ jobs:
         with:
           files: |
             manager/*.apk
-            manager-spoofed/*.apk
             android*-lkm/*_kernelsu.ko
             AnyKernel3-*.zip
             boot-images-*/Image-*/*.img.gz
