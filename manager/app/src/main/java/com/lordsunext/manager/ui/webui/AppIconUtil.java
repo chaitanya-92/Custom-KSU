@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.LruCache;
-import com.rifsxd.ksunext.ui.viewmodel.SuperUserViewModel;
+import com.lordsunext.manager.ui.viewmodel.SuperUserViewModel;
 
 public class AppIconUtil {
     // Limit cache size to 200 icons
